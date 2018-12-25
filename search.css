@@ -1,0 +1,46 @@
+#search-box {
+  margin: 0;
+  display:flex;
+  
+}
+
+.search-submit {
+  margin: 0;
+  padding: 0.5em 1em;
+  display:block;
+}
+
+.search-criteria {
+  margin: 0;
+  flex-grow: 1;
+  padding: 0.5em 1em;
+  display: block;
+}
+
+.results-box {
+  margin: 0.25em;
+}
+
+.result-box {
+  align-items: center;
+  border: 1px gray solid; 
+  margin: 0.25em;
+  display: grid;
+  grid-template-columns: 5em auto;
+  grid-template-areas: 
+    "thumbnail name";
+}
+.result-name {
+    padding: 1em;
+    word-break: break-all;
+    align-self: start;
+    justify-self: start;
+}
+
+.result-thumbnail {
+  height: 5em;
+  width: 5em;
+  object-fit: contain; 
+  object-position: center;
+  align-self: start;
+}
