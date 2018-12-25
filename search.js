@@ -96,6 +96,7 @@ document.querySelector("#search-box .search-submit")
 function httpGet(url, callback, errorCallback) {
   const request = new XMLHttpRequest();
   request.open("GET", url, true);
+  request.setRequestHeader("Access-Control-Allow-Origin","*");
   request.addEventListener("readystatechange", () => { 
     if (request.readyState == 4 && request.status == 200) {
       callback(request);
