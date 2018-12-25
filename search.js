@@ -78,7 +78,7 @@ const buildUrl = R.curry((base, params) => {
   return base + "?" + encodeParams(params);
 });
 
-const searchUrl = buildUrl("http://api.walmartlabs.com/v1/search");
+const searchUrl = buildUrl("https://api.walmartlabs.com/v1/search");
 
 document.querySelector("#search-box .search-submit")
   .addEventListener("click", () => {
