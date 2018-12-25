@@ -78,7 +78,7 @@ const buildUrl = R.curry((base, params) => {
   return base + "?" + encodeParams(params);
 });
 
-const searchUrl = buildUrl("https://api.walmartlabs.com/v1/search");
+const searchUrl = buildUrl("https://cors-anywhere.herokuapp.com/https://api.walmartlabs.com/v1/search");
 
 document.querySelector("#search-box .search-submit")
   .addEventListener("click", () => {
@@ -96,7 +96,6 @@ document.querySelector("#search-box .search-submit")
 function httpGet(url, callback, errorCallback) {
   const request = new XMLHttpRequest();
   request.open("GET", url, true);
-  request.setRequestHeader("Access-Control-Allow-Origin","*");
   request.addEventListener("readystatechange", () => { 
     if (request.readyState == 4 && request.status == 200) {
       callback(request);
