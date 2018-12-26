@@ -173,10 +173,7 @@ const protoviewItemScreen = htmlFactory(() => {
   const itemScreen = document.createElement("div");
   itemScreen.classList.add("item-screen");
 
-  const itemBack = document.createElement("button");
-  itemBack.classList.add("item-back");
-  itemBack.textContent = "Back to Search";
-  itemScreen.appendChild(itemBack);
+
 
   const itemBox = document.createElement("div");
   itemBox.classList.add("item-box");
@@ -216,6 +213,11 @@ const protoviewItemScreen = htmlFactory(() => {
   itemDetails.appendChild(protoviewDetail("item-stock", "Stock"));
   itemBox.appendChild(itemDetails);
   
+  const itemBack = document.createElement("button");
+  itemBack.classList.add("item-back");
+  itemBack.textContent = "Back to Search";
+  itemScreen.appendChild(itemBack);
+  
   itemScreen.appendChild(itemBox);
   return itemScreen;
 });
@@ -248,4 +250,3 @@ const viewItemScreen = (item) => {
 }
 
 window.addEventListener("load", gotoSearchScreen);
-
