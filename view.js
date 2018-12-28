@@ -155,7 +155,7 @@ view.scannerScreen = dom.factory(() => {
   const scannerScreen = dom.make(view.screen(), ["ll-scanner-screen"]);
   
   const scannerContainer = dom.make("div", ["ll-scanner-container", "w-100", "h-100"]);
-  scannerContainer.appenChild(dom.make("div", ["ll-scanner-preview"]));
+  scannerContainer.appendChild(dom.make("div", ["ll-scanner-preview"]));
   scannerScreen.appendChild(scannerContainer);
   
   const scannerCancel = dom.make(view.fab(), ["ll-scanner-cancel" , "btn", "btn-danger"], "Cancel");
