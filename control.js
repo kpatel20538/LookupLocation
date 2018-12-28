@@ -178,7 +178,7 @@ control.itemData = (item) => {
   
   const itemThumbnail = container.querySelector(".ll-item-image");
   itemThumbnail.src = (new Optional(item))
-        .map((x) => x.thumbnailImage)
+        .map((x) => x.largeImage)
         .getOrElse("https://via.placeholder.com/64?text=?");
 
   const upc = (new Optional(item))
