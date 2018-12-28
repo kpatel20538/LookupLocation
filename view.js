@@ -152,10 +152,13 @@ view.itemScreen = dom.factory(() => {
 
 
 view.scannerScreen = dom.factory(() => {
-  const scannerScreen = dom.make(view.screen(), ["ll-scanner-screen", "d-flex", "flex-column", "align-content-stretch", "h-100", "w-100"]);
-  scannerScreen.appendChild(dom.make("div", ["ll-scanner-preview", "flex-fill", "mx-auto"]));
+  const scannerScreen = dom.make(view.screen(), ["ll-scanner-screen"]);
   
-  const scannerCancel = dom.make("button", ["ll-scanner-cancel" , "btn", "btn-danger", "btn-block"], "Cancel");
+  const scannerContainer = dom.make("div", ["ll-scanner-container", "w-100", "h-100"]);
+  scannerContainer.appenChild(dom.make("div", ["ll-scanner-preview"]));
+  scannerScreen.appendChild(scannerContainer);
+  
+  const scannerCancel = dom.make(view.fab(), ["ll-scanner-cancel" , "btn", "btn-danger"], "Cancel");
   scannerCancel.type = "button";
   scannerScreen.appendChild(scannerCancel);
   return scannerScreen;
