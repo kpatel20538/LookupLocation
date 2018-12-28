@@ -1,0 +1,18 @@
+.ll-fab {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.ll-thumbnail {
+  object-fit: contain; 
+  object-position: center;
+}
+
+.ll-search-results {
+  min-height: 50vh;
+}
+
+* {
+  word-break: break-word;
+}
