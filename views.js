@@ -159,7 +159,7 @@ views.scannerScreen = dom.factory(`
     <div class="ll-scanner-preview"> 
       <!-- SCANNER PREVIEW --> 
     </div>
-    <button class="ll-scanner-cancel btn btn-danger btn-block" type="button"> Cancel </div>
+    <button class="ll-scanner-cancel btn btn-danger btn-block  btn-lg" type="button"> Cancel </div>
   </div>
 `);
 
