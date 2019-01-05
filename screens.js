@@ -173,7 +173,7 @@ screens.scanner = intent => {
     locator: { patchSize: "large", halfSample: true },
     decoder: { readers : ["upc_reader"] }
   }, err => {
-    if (err) { tags.preview = controls.error({message: err.name + ": " + err.message}) ; }
+    if (err) { tags.preview.child = controls.error({message: err.name + ": " + err.message}) ; }
 
     Quagga.onProcessed(result => {
       console.log(result);
