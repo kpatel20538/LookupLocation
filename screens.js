@@ -176,19 +176,21 @@ screens.scanner = intent => {
     if (err) { tags.preview.child = controls.error({message: err.name + ": " + err.message}) ; }
 
     Quagga.onProcessed(result => {
-      console.log(result);
       const canvas= Quagga.canvas.dom.overlay;
       const ctx = Quagga.canvas.ctx.overlay;
       const drawPath = Quagga.ImageDebug.drawPath;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (typeof result !== "undefined") {
+        if(typeof result.boxes !== "undefined") {
+          for (box of result.boxes) {
+            const color = box === result.box ? "blue" : "green";
+            drawPath(box, {x: 0, y: 1}, ctx, {color: color, lineWidth: 2});
+          }
+        }
       
-      for (box of result.boxes) {
-        const color = box == result.box ? "blue" : "green";
-        drawPath(box, {x: 0, y: 1}, ctx, {color: color, lineWidth: 2});
-      }
-
-      if (result.codeResult && result.codeResult.code) {
-        drawPath(result.line, {x: "x", y: "y"}, ctx, {color: "red", lineWidth: 3});
+        if (typeof result.codeResult !== "undefined" && typeof result.codeResult.code !== "undefined") {
+          drawPath(result.line, {x: "x", y: "y"}, ctx, {color: "red", lineWidth: 3});
+        }
       }
     });
 
