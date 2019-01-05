@@ -17,7 +17,12 @@
   word-break: break-word;
 }
 
-.ll-scanner-cancel{
+.ll-scanner-cancel {
   position: fixed;
   bottom: 0;
+}
+
+.ll-scanner-preview canvas, 
+.ll-scanner-preview video {
+  position: absolute;
 }

@@ -173,14 +173,15 @@ screens.scanner = intent => {
     locator: { patchSize: "large", halfSample: true },
     decoder: { readers : ["upc_reader"] }
   }, err => {
-    if (err) { throw err; }
+    if (err) { tags.preview = controls.error({message: err.name + ": " + err.message}) ; }
 
     Quagga.onProcessed(result => {
+      console.log(result);
       const canvas= Quagga.canvas.dom.overlay;
       const ctx = Quagga.canvas.ctx.overlay;
       const drawPath = Quagga.ImageDebug.drawPath;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
+      
       for (box of result.boxes) {
         const color = box == result.box ? "blue" : "green";
         drawPath(box, {x: 0, y: 1}, ctx, {color: color, lineWidth: 2});
