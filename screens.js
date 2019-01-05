@@ -164,11 +164,7 @@ screens.scanner = intent => {
     inputStream : {
       type : "LiveStream",
       target: tags.preview,
-      width: window.innerWidth,
-      height: window.innerHeight,
       constraints: { 
-        width: window.innerWidth,
-        height: window.innerHeight,
         facingMode: "environment" 
       },
     },
