@@ -16,3 +16,8 @@
 * {
   word-break: break-word;
 }
+
+.ll-scanner-cancel{
+  position: fixed;
+  bottom: 0;
+}

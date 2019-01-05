@@ -1,19 +1,23 @@
-const url = {};
+export const url = {};
 
 url.formatPath = (template, args) => {
-  const encodedArgs = {};
-  for (const key of args) {
-    encodedArgs["<" + key + ">"] = encodeURI(args[key]);
-  }
+  const encodedArgs = Object.entries(args)
+    .filter(pair => pair.every(x => typeof x !== "undefined"))
+    .map(([key, value]) => ["<" + key + ">", encodeURI(value)])
+    .reduce((obj, [key, value]) => { obj[key] = value; return obj; }, {});
+
   return template.replace(
-    /<[^>]*>/,
-    (key) => encodedArgs[key]
+    /<[^>]*>/, key => {
+      const value = encodedArgs[key];
+      return typeof value !== "undefined" ? value : "";
+    }
   );
 };
 
 url.encodeParameters = (path, params) => {
-  return path + "?" + Object.keys(params)
-    .map((k) => encodeURIComponent(k) + "=" + encodeURIComponent(params[k]))
+  return path + "?" + Object.entries(params)
+    .filter(pair => pair.every(x => typeof x !== "undefined"))
+    .map(pair => pair.map(encodeURIComponent).join("="))
     .join("&");
 };
 

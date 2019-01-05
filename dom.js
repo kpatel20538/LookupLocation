@@ -1,51 +1,47 @@
-Node.prototype.clearChildren = function() {
-  while(this.firstChild) { 
-    this.removeChild(this.firstChild);
-  }
-};
+export const dom = {};
 
-Node.prototype.appendChildren = function(children) {
-  for(const child of children) { 
-    this.appendChild(child);
-  }
-};
+const fromTemplate = spec => 
+  new DOMParser()
+    .parseFromString(spec, "text/html")
+    .body.firstChild;
 
-Node.prototype.setChildren = function(children) {
-  this.clearChildren();
-  this.appendChildren(children);
-};
-
-Node.prototype.setChild = function(child) {
-  this.clearChildren();
-  this.appendChild(child);
-};
-
-const dom = {};
-
-dom.factory = (provider) => {
-  const el = provider();
+dom.factory = spec => {
+  const el = typeof spec === "function" 
+    ? spec() : fromTemplate(spec)
   return () => el.cloneNode(true);
 }
 
-dom.make = (el, classList, textContent) => {
-  if (typeof el === "string") {
-    el = document.createElement(el);
-  }
-  if (typeof classList !== "undefined") {
-    for (const clazz of classList) {
-      el.classList.add(clazz);
+dom.query = (parent, selectors) => 
+  Object.freeze(Object.entries(selectors)
+    .map(([key, selector]) => [key, parent.querySelector(selector)])
+    .reduce((obj, [key, view]) => {obj[key] = view; return obj;}, {})); 
+
+const ParentNode = [Element, Document, DocumentFragment];
+
+ParentNode.map(obj => obj.prototype).forEach(proto => {
+  proto.clearChildren = function() {
+    while(this.firstChild) { 
+      this.removeChild(this.firstChild); 
     }
   }
-  if (typeof textContent !== "undefined") {
-    const textNode = document.createTextNode(textContent); 
-    el.setChild(textNode);
-  }
-  return el;
-}
 
-dom.makeSvg = (el, classList, textContent) => {
-  if (typeof el === "string") {
-    el = document.createElementNS("http://www.w3.org/2000/svg", el);
-  }
-  return dom.make(el, classList, textContent);
-}
+  proto.appendChildren = function(children) {
+    for(const child of children) { 
+      this.appendChild(child);
+    }
+  };
+  
+  Object.defineProperty(proto, 'child', {
+    set(value) {
+      this.clearChildren();
+      this.appendChild(value);
+    },
+  });
+
+  Object.defineProperty(proto, 'children', {
+    set(value) {
+      this.clearChildren();
+      this.appendChildren(value);
+    },
+  });
+}); 
