@@ -182,8 +182,7 @@ screens.scanner = intent => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (typeof result !== "undefined") {
         if(typeof result.boxes !== "undefined") {
-          const target = typeof result.box !== "undefined" ? result.box : null;
-          for (box of result.boxes) {
+          for (const box of result.boxes) {
             const color = box === result.box ? "blue" : "green";
             drawPath(box, {x: 0, y: 1}, ctx, {color: color, lineWidth: 2});
           }
