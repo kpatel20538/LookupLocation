@@ -147,7 +147,7 @@ views.itemData = dom.factory(`
 
 views.itemScreen = dom.factory(`
   <div class="ll-screen ll-item-screen">
-    <div class="ll-item-container"> 
+    <div class="ll-item-container p-2"> 
       <!-- ITEM DATA VIEW --> 
     </div>
     <button class="ll-item-return ll-fab btn btn-primary btn-lg m-4" type="button"> Back to Search </div>
