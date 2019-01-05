@@ -10,7 +10,7 @@ const textControl = (view, intent) => {
 }
 
 controls.error = intent => 
-  textControl(views.error(), intent.message);
+  textControl(views.error(), intent.name + ": "+ intent.message);
 
 controls.field = intent => 
   intent.error.test(intent.message) 

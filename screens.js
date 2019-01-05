@@ -170,10 +170,13 @@ screens.scanner = intent => {
     },
     numOfWorkers: 4,
     frequency: 20,
-    locator: { patchSize: "large", halfSample: true },
+    locator: { patchSize: "x-large", halfSample: true },
     decoder: { readers : ["upc_reader"] }
   }, err => {
-    if (err) { tags.preview.child = controls.error({message: err.name + ": " + err.message}) ; }
+    if (err) { 
+      tags.preview.child = controls.error(err); 
+      return; 
+    }
 
     Quagga.onProcessed(result => {
       const canvas= Quagga.canvas.dom.overlay;
