@@ -177,7 +177,7 @@ screens.scanner = intent => {
     locator: { patchSize: "large", halfSample: true },
     decoder: { readers : ["upc_reader"] }
   }, err => {
-    if (err) { console.log(err); return; }
+    if (err) { throw err; }
 
     Quagga.onProcessed(result => {
       const canvas= Quagga.canvas.dom.overlay;
