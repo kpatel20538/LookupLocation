@@ -48,5 +48,12 @@ walmart.lookupUpc = options => {
   return fetch(requestPath, {
     method: "GET",
     mode: "cors",
-  }).then(resp => resp.json());
+  }).then(resp => resp.json())
+  .then(json => {
+      if ('errors' in json) {
+        return Promise.reject({name: 'LookupError', message: json.errors[0].message})
+      } else {
+        return Promise.resolve(json);
+      }
+  });
 };

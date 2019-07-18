@@ -117,7 +117,6 @@ screens.item = intent => {
   });
 
   const onSuccess = (results) => {
-    console.log(results)
     tags.container.child = controls.itemData(results[0]);
     onComplete();
   }
