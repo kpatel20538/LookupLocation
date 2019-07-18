@@ -2,7 +2,7 @@
 A product lookup app for finding products at your local Walmart to help aide Walmart Associates.
 
 This application is deployed static web app. Meaning you can use it right now, at 
-https://kpatel20538.github.com/LookupLocation
+https://kpatel20538.github.io/LookupLocation
 
 This application relys on the Walmart Open RESTful API 
 https://developer.walmartlabs.com/
