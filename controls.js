@@ -4,24 +4,58 @@ import { models } from "./models.js";
 
 export const controls = { };
 
+/**
+ * Binds a view with textual intent
+ * 
+ * This control acts a base-template for text-base control
+ * @param {Element} view the binding view
+ * @param {*} intent     the context of the binding (Text to populate the view)
+ * @return {Element}     the bound view
+ */
 const textControl = (view, intent) => {
   view.textContent = intent;
   return view;
 }
 
+/**
+ * Creates and Binds a view with text about some error
+ * 
+ * @param {*} intent     the context of the binding (An Error Message)
+ * @return {Element}     A bound view
+ */
 controls.error = intent => 
   textControl(views.error(), intent.name + ": "+ intent.message);
 
+/**
+ * Creates and Binds a view with field data. 
+ * Return an alternative view if the field data is malformed 
+ * 
+ * @param {*} intent     the context of the binding
+ * @return {Element}     A bound view
+ */
 controls.field = intent => 
   intent.error.test(intent.message) 
     ? textControl(views.muted(), intent.message)
     : textControl(views.normal(), intent.message);
 
+/**
+ * Creates and Binds a view with field data that should enclosed in a badge. 
+ * Return an alternative view if the field data is malformed 
+ * 
+ * @param {*} intent     the context of the binding
+ * @return {Element}     A bound view
+ */
 controls.badge = intent => 
   intent.error.test(intent.message) 
     ? textControl(views.redBadge(), intent.message)
     : textControl(views.blueBadge(), intent.message);
 
+/**
+ * Creates and Binds a view with a list of search results.  
+ *  
+ * @param {*} intent     the context of the binding
+ * @return {Element}     A bound view
+ */
 controls.results = intent => {
   const view = views.resultsList();
   view.children = intent.data.items
@@ -29,6 +63,13 @@ controls.results = intent => {
   return view;
 };
 
+/**
+ * Creates and Binds a view with a single of search results.
+ * This views will responds to clicks by providing a upc via intent.onItemClick
+ *  
+ * @param {*} intent     the context of the binding
+ * @return {Element}     A bound view
+ */
 controls.resultData = intent => {
   const model = models.resultData(intent.data);
   const view = views.resultData();
@@ -48,6 +89,12 @@ controls.resultData = intent => {
   return view;
 };
 
+/**
+ * Creates and Binds a view with a single of product.
+ *  
+ * @param {*} intent     the context of the binding
+ * @return {Element}     A bound view
+ */
 controls.itemData = intent => {
   const model = models.itemData(intent);
   const view = views.itemData();

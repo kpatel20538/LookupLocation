@@ -7,6 +7,9 @@ import { walmart } from "./walmart.js";
 
 export const screens = {};
 
+/**
+ * Create and Bind a view from some intent to handle a user search queries 
+ */
 screens.search = intent => {
   const model = models.search(intent);
   const view = views.searchScreen();
@@ -108,6 +111,9 @@ screens.search = intent => {
   return view;
 }
 
+/**
+ * Create and Bind a view from some intent to handle a user item lookup
+ */
 screens.item = intent => {
   const model = models.item(intent);
   const view = views.itemScreen();
@@ -145,6 +151,9 @@ screens.item = intent => {
   return view;
 }
 
+/**
+ * Create and Bind a view from some intent to handle a user barcode scan
+ */
 screens.scanner = intent => {
   const model = models.scanner(intent);
   const view = views.scannerScreen();

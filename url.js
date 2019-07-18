@@ -1,5 +1,8 @@
 export const url = {};
 
+/**
+ * Populate a url-template with with the given arguments
+ */
 url.formatPath = (template, args) => {
   const encodedArgs = Object.entries(args)
     .filter(pair => pair.every(x => typeof x !== "undefined"))
@@ -14,6 +17,9 @@ url.formatPath = (template, args) => {
   );
 };
 
+/**
+ * Encode a set of parameters and append them to an exisiting url
+ */
 url.encodeParameters = (path, params) => {
   return path + "?" + Object.entries(params)
     .filter(pair => pair.every(x => typeof x !== "undefined"))
@@ -21,6 +27,9 @@ url.encodeParameters = (path, params) => {
     .join("&");
 };
 
+/**
+ * Create url from the given template, template arumgents and url paramters
+ */
 url.create = (template, args, params) => {
   const path = url.formatPath(template, args);
   return url.encodeParameters(path, params);

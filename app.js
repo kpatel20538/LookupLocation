@@ -1,3 +1,8 @@
+/**
+ * Proxies the Storage API to allow str-to-JSON API
+ * @param  {Storage} storage An valid implementation of storage (storage.localStorage)
+ * @return {Proxy}           The resultant proxy object
+ */
 function JsonStorage(storage) {
   return new Proxy({}, {
     get(target, key) {
@@ -25,6 +30,9 @@ function JsonStorage(storage) {
   });
 }
 
+/**
+ * The App module acts a singlton that manages the application 'screen' and storage 
+ */
 export const app = {
   set screen(value) { document.body.child = value; },
   storage: JsonStorage(window.localStorage)

@@ -1,6 +1,10 @@
 import { dom } from "./dom.js";
 
+/**
+ * A module of view factories for using controls and screens
+ */
 export const views = {}
+
 
 views.loading = dom.factory(`
   <div class="ll-loading m-5 d-flex justify-content-center align-items-center">

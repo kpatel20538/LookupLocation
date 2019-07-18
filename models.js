@@ -35,6 +35,9 @@ const scannerIntent ={
   lastSearch: searchIntent
 };
 
+/**
+ * Provide a Object Property Spec that coerces a fields value
+ */
 const validator = (init, coerce) => {
   coerce = typeof coerce === "function" ? coerce : x => x; 
   let prop = init;
@@ -48,24 +51,37 @@ const validator = (init, coerce) => {
   };
 }
 
+/**
+ * Mandate a non-empty string (for use in validator)
+ */
 const acceptNonEmpty = str => { 
   if(str !== "") { 
     return str; 
   } 
 }
 
+/**
+ * Mandate a positive int (for use in validator)
+ */
 const acceptPositiveInt = obj => { 
   const num = obj | 0;
   if(isFinite(num) && 0 < num) { 
     return num; 
   } 
 }
+
+/**
+ * Coerce in a monetary format (for use in validator)
+ */
 const acceptPrice = str => { 
   if(str || str === "0" || str === 0) {
     return accounting.formatMoney(str);
   }
 }
 
+/**
+ * Coerce to within a range (for use in validator)
+ */
 const acceptWithinRange = (min, max, obj) => {
   if (obj < min) {
     return min;
@@ -76,6 +92,9 @@ const acceptWithinRange = (min, max, obj) => {
   }
 }
 
+/**
+ * Provide a model that coerces its fields to be valid values for a search query
+ */
 models.search = (intent) => {
   const model = Object.create(searchIntent, { 
     query: validator(searchIntent.query),
@@ -86,6 +105,9 @@ models.search = (intent) => {
   return Object.assign(model, intent);
 }
 
+/**
+ * Provide a model that coerces its fields to be valid values for a single search result 
+ */
 models.resultData = (intent) => {
   const model = Object.create(resultDataIntent, { 
     name: validator(resultDataIntent.name, acceptNonEmpty),
@@ -96,12 +118,19 @@ models.resultData = (intent) => {
   return Object.assign(model, intent);
 }
 
+/**
+ * Provide a model that coerces its fields to be valid values for a single product's upc
+ */
 models.item = (intent) => {
   const model = Object.create(itemIntent, {
     upc: validator(itemIntent.upc, acceptNonEmpty),
   });
   return Object.assign(model, intent)
 }
+
+/**
+ * Provide a model that coerces its fields to be valid values for a single product's full information
+ */
 models.itemData = (intent) => {
   const model = Object.create(itemDataIntent, {
     name: validator(itemDataIntent.name, acceptNonEmpty),
@@ -115,6 +144,9 @@ models.itemData = (intent) => {
   return Object.assign(model, intent);
 }
 
+/**
+ * Provide a model that coerces its fields to be valid values for the barcode scanner 
+ */
 models.scanner = (intent) => {
   const model = Object.create(scannerIntent);
   return Object.assign(model, intent);

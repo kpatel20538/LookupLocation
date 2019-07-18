@@ -5,6 +5,9 @@ export const walmart = {};
 const walmartOrigin = "https://cors-anywhere.herokuapp.com/http://api.walmartlabs.com";
 const apiKey = "csfyhryrmswq86eqrab3jy9p";
 
+/**
+ * Dispatch to Walmarts Open API to search for products
+ */
 walmart.search = options => {
   options.apiKey = apiKey;
   if (options.query === undefined || options.query === "") {
@@ -24,6 +27,9 @@ walmart.search = options => {
   })
 };
 
+/**
+ * Dispatch to Walmarts Open API to lookup a product by id
+ */
 walmart.lookup = options => {
   options.apiKey = apiKey;
   
@@ -40,6 +46,9 @@ walmart.lookup = options => {
   });
 };
 
+/**
+ * Dispatch to Walmarts Open API to lookup a product by upc
+ */
 walmart.lookupUpc = options => {
   options.apiKey = apiKey;
 
