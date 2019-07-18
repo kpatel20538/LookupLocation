@@ -46,7 +46,6 @@ screens.search = intent => {
     model.totalResults = results.totalResults;
 
     assignResults(true);
-    onComplete();
   }
 
   const onError = (err) => {
@@ -54,19 +53,7 @@ screens.search = intent => {
     delete model.totalResults;
     model.start = 0;
     
-    tags.results.child = controls.error(err);
-    onComplete();
-  }
-
-  const onComplete = () => {
-    const end = model.start + model.numItems
-    tags.next.disabled = model.totalResults < end;
-    tags.prev.disabled = model.start <= 0;
-    
-    Object.assign(app.storage, {
-      screen: "search",
-      intent: model
-    });
+    assignResults(true, err);
   }
 
   const requestSearch = () => {
@@ -81,14 +68,25 @@ screens.search = intent => {
       .catch(onError);
   }
 
-  const assignResults = (force) => {  
-    if (typeof model.results !== "undefined" ) {
+  const assignResults = (force, error) => {  
+    if (typeof error !== "undefined") {
+      tags.results.child = controls.error(error);
+    } else if (typeof model.results !== "undefined") {
       if (typeof model.results.items !== "undefined" && model.results.items.length !== 0) {
         tags.results.child = controls.results({data: model.results, onItemClick: onItemClick});
       } else if (force) {
         tags.results.child = views.emptyResultsList();
       }
     }
+
+    const end = model.start + model.numItems
+    tags.next.disabled = model.totalResults < end;
+    tags.prev.disabled = model.start <= 0;
+    
+    Object.assign(app.storage, {
+      screen: "search",
+      intent: model
+    });
   }
 
   const onItemClick = (upc) => {
@@ -119,7 +117,7 @@ screens.item = intent => {
   });
 
   const onSuccess = (results) => {
-    tags.container.child = controls.itemData(results.items[0]);
+    tags.container.child = controls.itemData(results[0]);
     onComplete();
   }
 
@@ -136,12 +134,7 @@ screens.item = intent => {
   }
 
   const onReturn = () => {
-    Object.assign(app.storage, {
-      screen: "search",
-      intent: model.lastSearch
-    });
     app.screen = screens.search(model.lastSearch);
-
   }
 
   tags.back.addEventListener("click", onReturn);
